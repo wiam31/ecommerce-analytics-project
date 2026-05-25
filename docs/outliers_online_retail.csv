@@ -1,0 +1,4 @@
+dataset,column,Q1,Q3,IQR,lower_bound,upper_bound,outlier_count,outlier_rate_%,min_value,max_value
+Online Retail,Quantity,1.0,10.0,9.0,-12.5,23.5,58619,10.82,-80995.0,80995.0
+Online Retail,UnitPrice,1.25,4.13,2.88,-3.0700000000000003,8.45,39627,7.31,-11062.06,38970.0
+Online Retail,CustomerID,13953.0,16791.0,2838.0,9696.0,21048.0,0,0.0,12346.0,18287.0

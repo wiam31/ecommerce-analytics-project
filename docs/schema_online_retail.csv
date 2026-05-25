@@ -1,0 +1,9 @@
+dataset,column,dtype,non_null_count,null_count,unique_count,example_value
+Online Retail,InvoiceNo,object,541909,0,25900,536365
+Online Retail,StockCode,object,541909,0,4070,85123A
+Online Retail,Description,object,540455,1454,4223,WHITE HANGING HEART T-LIGHT HOLDER
+Online Retail,Quantity,int64,541909,0,722,6
+Online Retail,InvoiceDate,object,541909,0,23260,12/1/2010 8:26
+Online Retail,UnitPrice,float64,541909,0,1630,2.55
+Online Retail,CustomerID,float64,406829,135080,4372,17850.0
+Online Retail,Country,object,541909,0,38,United Kingdom

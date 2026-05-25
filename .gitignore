@@ -1,0 +1,15 @@
+# Environnements Python
+venv/
+.venv/
+
+# Cache Python
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+
+# Fichiers compilés / DLL
+*.dll
+*.pyd
+
+# Environnement local git log --oneline
+.env

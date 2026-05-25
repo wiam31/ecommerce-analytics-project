@@ -1,0 +1,19 @@
+# Data manipulation
+pandas
+numpy
+
+# Visualisation
+matplotlib
+seaborn
+plotly
+
+# Machine learning (utile pour L2/L3)
+scikit-learn
+
+# Notebook environment
+jupyter
+notebook
+
+
+# Utilitaires
+openpyxl

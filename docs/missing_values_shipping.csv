@@ -1,0 +1,13 @@
+dataset,column,missing_count,missing_rate_%,non_missing_count
+E-Commerce Shipping,ID,0,0.0,10999
+E-Commerce Shipping,Warehouse_block,0,0.0,10999
+E-Commerce Shipping,Mode_of_Shipment,0,0.0,10999
+E-Commerce Shipping,Customer_care_calls,0,0.0,10999
+E-Commerce Shipping,Customer_rating,0,0.0,10999
+E-Commerce Shipping,Cost_of_the_Product,0,0.0,10999
+E-Commerce Shipping,Prior_purchases,0,0.0,10999
+E-Commerce Shipping,Product_importance,0,0.0,10999
+E-Commerce Shipping,Gender,0,0.0,10999
+E-Commerce Shipping,Discount_offered,0,0.0,10999
+E-Commerce Shipping,Weight_in_gms,0,0.0,10999
+E-Commerce Shipping,Reached.on.Time_Y.N,0,0.0,10999

@@ -1,0 +1,6 @@
+dataset,column,unique_count,top_value,top_count,top_rate_%
+Online Retail,InvoiceNo,25900,573585,1114,0.21
+Online Retail,InvoiceDate,23260,10/31/2011 14:41,1114,0.21
+Online Retail,Description,4223,WHITE HANGING HEART T-LIGHT HOLDER,2369,0.44
+Online Retail,StockCode,4070,85123A,2313,0.43
+Online Retail,Country,38,United Kingdom,495478,91.43

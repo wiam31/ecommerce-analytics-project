@@ -1,0 +1,9 @@
+dataset,column,Q1,Q3,IQR,lower_bound,upper_bound,outlier_count,outlier_rate_%,min_value,max_value
+E-Commerce Shipping,Discount_offered,4.0,10.0,6.0,-5.0,19.0,2209,20.08,1,65
+E-Commerce Shipping,Prior_purchases,3.0,4.0,1.0,1.5,5.5,1003,9.12,2,10
+E-Commerce Shipping,ID,2750.5,8249.5,5499.0,-5498.0,16498.0,0,0.0,1,10999
+E-Commerce Shipping,Customer_care_calls,3.0,5.0,2.0,0.0,8.0,0,0.0,2,7
+E-Commerce Shipping,Cost_of_the_Product,169.0,251.0,82.0,46.0,374.0,0,0.0,96,310
+E-Commerce Shipping,Customer_rating,2.0,4.0,2.0,-1.0,7.0,0,0.0,1,5
+E-Commerce Shipping,Weight_in_gms,1839.5,5050.0,3210.5,-2976.25,9865.75,0,0.0,1001,7846
+E-Commerce Shipping,Reached.on.Time_Y.N,0.0,1.0,1.0,-1.5,2.5,0,0.0,0,1

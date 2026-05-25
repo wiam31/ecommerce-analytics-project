@@ -1,0 +1,8 @@
+controle,count,rate_%,commentaire
+Factures commençant par C,9288,1.71,Retours ou annulations probables.
+Quantity < 0,10624,1.96,Quantités négatives liées souvent aux retours.
+Quantity = 0,0,0.0,Quantités nulles à examiner.
+UnitPrice <= 0,2517,0.46,Prix nul ou négatif à traiter.
+Description manquante,1454,0.27,Description produit absente.
+CustomerID manquant,135080,24.93,Important pour RFM/CLV.
+Codes produits spéciaux,2085,0.38,Codes non produits à traiter dans Silver.

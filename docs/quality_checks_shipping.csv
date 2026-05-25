@@ -1,0 +1,7 @@
+controle,count,rate_%,commentaire
+Discount_offered < 0,0,0.0,Remise négative incohérente.
+Discount_offered > 100,0,0.0,Remise supérieure à 100 % incohérente.
+Cost_of_the_Product <= 0,0,0.0,Coût produit nul ou négatif.
+Weight_in_gms <= 0,0,0.0,Poids nul ou négatif incohérent.
+Customer_rating hors 1-5,0,0.0,Note client hors plage attendue.
+Reached.on.Time_Y.N hors 0/1,0,0.0,Variable binaire attendue.

@@ -1,0 +1,9 @@
+dataset,column,missing_count,missing_rate_%,non_missing_count
+Online Retail,CustomerID,135080,24.93,406829
+Online Retail,Description,1454,0.27,540455
+Online Retail,StockCode,0,0.0,541909
+Online Retail,InvoiceNo,0,0.0,541909
+Online Retail,Quantity,0,0.0,541909
+Online Retail,InvoiceDate,0,0.0,541909
+Online Retail,UnitPrice,0,0.0,541909
+Online Retail,Country,0,0.0,541909

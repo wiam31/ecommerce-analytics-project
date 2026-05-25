@@ -1,0 +1,13 @@
+dataset,column,dtype,non_null_count,null_count,unique_count,example_value
+E-Commerce Shipping,ID,int64,10999,0,10999,1
+E-Commerce Shipping,Warehouse_block,object,10999,0,5,D
+E-Commerce Shipping,Mode_of_Shipment,object,10999,0,3,Flight
+E-Commerce Shipping,Customer_care_calls,int64,10999,0,6,4
+E-Commerce Shipping,Customer_rating,int64,10999,0,5,2
+E-Commerce Shipping,Cost_of_the_Product,int64,10999,0,215,177
+E-Commerce Shipping,Prior_purchases,int64,10999,0,8,3
+E-Commerce Shipping,Product_importance,object,10999,0,3,low
+E-Commerce Shipping,Gender,object,10999,0,2,F
+E-Commerce Shipping,Discount_offered,int64,10999,0,65,44
+E-Commerce Shipping,Weight_in_gms,int64,10999,0,4034,1233
+E-Commerce Shipping,Reached.on.Time_Y.N,int64,10999,0,2,1

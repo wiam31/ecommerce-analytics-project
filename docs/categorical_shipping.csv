@@ -1,0 +1,5 @@
+dataset,column,unique_count,top_value,top_count,top_rate_%
+E-Commerce Shipping,Warehouse_block,5,F,3666,33.33
+E-Commerce Shipping,Mode_of_Shipment,3,Ship,7462,67.84
+E-Commerce Shipping,Product_importance,3,low,5297,48.16
+E-Commerce Shipping,Gender,2,F,5545,50.41
