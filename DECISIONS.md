@@ -2,20 +2,28 @@
 
 ## 1. Objectif
 
-Ce document décrit les décisions prises lors du nettoyage des datasets afin de transformer les données brutes en données exploitables pour l’analyse et la modélisation.
+Ce document décrit les décisions prises pour transformer les données brutes en données propres et exploitables dans un pipeline ETL (Bronze → Silver → Gold).
+
+L’objectif est d’assurer :
+- la qualité des données
+- la cohérence métier
+- la reproductibilité du pipeline
 
 ---
 
 ## 2. Dataset Online Retail (data.csv)
 
 ### 🔴 Doublons supprimés
-Les lignes dupliquées ont été supprimées car elles représentent des enregistrements redondants de transactions.
+- Des lignes dupliquées ont été supprimées
+- Elles représentaient des transactions redondantes
+
+👉 Impact : réduction du bruit dans les analyses de ventes
 
 ---
 
 ### 🔴 Valeurs manquantes
-- `CustomerID` supprimé si manquant
-- `Description` supprimé si manquant
+- `CustomerID` : suppression des lignes manquantes
+- `Description` : suppression des lignes manquantes
 
 👉 Justification :
 Ces champs sont essentiels pour identifier le client et le produit.
@@ -23,69 +31,101 @@ Ces champs sont essentiels pour identifier le client et le produit.
 ---
 
 ### 🔴 Factures annulées
-Les factures commençant par "C" ont été supprimées.
+- Suppression des factures commençant par `C`
 
 👉 Justification :
-Elles représentent des transactions annulées et ne sont pas utiles pour l’analyse des ventes.
+Ces transactions représentent des retours ou annulations et faussent l’analyse des ventes.
 
 ---
 
 ### 🔴 Quantités invalides
-Les valeurs `Quantity <= 0` ont été supprimées.
+- Suppression des valeurs `Quantity <= 0`
 
 👉 Justification :
-Une quantité négative ou nulle n’a pas de sens métier.
+Une quantité nulle ou négative n’a pas de sens métier.
 
 ---
 
 ### 🔴 Prix invalides
-Les valeurs `UnitPrice <= 0` ont été supprimées.
+- Suppression des valeurs `UnitPrice <= 0`
 
 👉 Justification :
 Un produit ne peut pas avoir un prix nul ou négatif.
 
 ---
 
-### 🔴 Dates invalides
-Les dates incorrectes ont été supprimées après conversion.
+### 🔴 Outliers (Quantité & Prix)
+- Détection et suppression des valeurs extrêmes (méthode IQR)
+
+👉 Impact :
+Réduction des biais sur les analyses de chiffre d’affaires
 
 ---
 
 ## 3. Dataset E-Commerce Shipping (Train.csv)
 
 ### 🔴 Doublons supprimés
-Les lignes identiques ont été supprimées pour éviter la redondance.
+- Suppression des lignes identiques
 
 ---
 
 ### 🔴 Valeurs manquantes
-Les valeurs manquantes ont été traitées comme suit :
-
-- Variables numériques → médiane
-- Variables catégorielles → mode
+- Variables numériques → imputation par la médiane
+- Variables catégorielles → imputation par le mode
 
 👉 Justification :
-- médiane → robuste aux outliers
-- mode → valeur la plus fréquente
+- la médiane est robuste aux outliers
+- le mode conserve la valeur la plus fréquente
+
+---
+
+### 🔴 Outliers
+- Suppression des outliers dans :
+  - `Prior_purchases`
+  - `Discount_offered`
+
+👉 Impact :
+Amélioration de la stabilité des modèles prédictifs
 
 ---
 
 ### 🔴 Conversion des dates
-Toutes les colonnes contenant des dates ont été converties en format datetime.
+- Conversion en format `datetime`
+
+👉 Objectif :
+Uniformisation et préparation pour feature engineering
 
 ---
 
-## 4. Résultat global
+## 4. Impact global du nettoyage
 
-- Données nettoyées et normalisées
-- Réduction des incohérences
-- Dataset prêt pour analyse et modélisation
+### 📉 Perte de données
+- Dataset Online Retail : ~17.74%
+- Dataset Shipping : ~27.53%
+
+👉 Cette perte est volontaire et contrôlée afin de garantir la qualité des données finales.
 
 ---
 
-## 5. Conclusion
+## 5. Pipeline ETL
+
+Le pipeline suit une architecture structurée :
+
+- **Bronze** : données brutes
+- **Silver** : données nettoyées
+- **Gold** : données prêtes pour analyse et modélisation
+
+✔ Propriétés du pipeline :
+- idempotent
+- reproductible
+- logué
+
+---
+
+## 6. Conclusion
 
 Ces décisions permettent de garantir :
 - une meilleure qualité des données
-- une analyse plus fiable
-- une base propre pour le pipeline data (Bronze → Silver → Gold)
+- une réduction des biais statistiques
+- un dataset fiable pour l’analyse et le machine learning
+- un pipeline industriel propre et reproductible
