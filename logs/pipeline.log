@@ -1,0 +1,11 @@
+2026-05-26 12:09:58,581 - INFO - Pipeline démarré
+2026-05-26 12:09:59,505 - INFO - 5268 doublons supprimés (lignes avant=541909, après=536641)
+2026-05-26 12:09:59,520 - INFO - 135037 valeurs manquantes imputées (médiane) dans CustomerID
+2026-05-26 12:09:59,575 - INFO - 58501 outliers supprimés dans Quantity (IQR)
+2026-05-26 12:09:59,629 - INFO - 32348 outliers supprimés dans UnitPrice (IQR)
+2026-05-26 12:09:59,664 - INFO - Perte totale du dataset : 17.74%
+2026-05-26 12:09:59,664 - INFO - 0 doublons supprimés (lignes avant=10999, après=10999)
+2026-05-26 12:09:59,677 - INFO - 1003 outliers supprimés dans Prior_purchases (IQR)
+2026-05-26 12:09:59,677 - INFO - 2025 outliers supprimés dans Discount_offered (IQR)
+2026-05-26 12:09:59,677 - INFO - Perte totale du dataset : 27.53%
+2026-05-26 12:10:00,929 - INFO - Pipeline terminé
