@@ -1,4 +1,4 @@
-﻿# 📊 E-commerce Analytics Project (L1 → L2)
+﻿# 📊 E-commerce Analytics Project 
 
 ## 📌 Description
 
