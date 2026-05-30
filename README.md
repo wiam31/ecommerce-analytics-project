@@ -11,28 +11,6 @@ Le projet est structuré en deux étapes principales :
 
 ---
 
-## 📁 Structure du projet
-ecommerce-analytics-project/
-│
-├── data/
-│ ├── raw/ # Données brutes
-│ ├── bronze/ # Données nettoyées (L2)
-│
-├── notebooks/
-│ ├── L1_profiling.ipynb
-│ ├── L2_cleaning.ipynb
-│
-├── reports/
-│ ├── profiling_online_retail.html
-│ ├── profiling_shipping.html
-│ ├── profiling_summary_l1.csv
-│
-├── DECISIONS.md
-├── requirements.txt
-└── README.md
-
----
-
 ## 📊 Datasets utilisés
 
 ### 1. Online Retail Dataset
