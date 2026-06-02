@@ -2,50 +2,143 @@ version: 2
 
 models:
 
+  # ── DIMENSIONS ──────────────────────────────────────────────
+
   - name: dim_customer
+    description: "1 ligne par client unique identifié (CustomerID non nul)"
     columns:
       - name: customer_id
-        tests:
-          - not_null
-          - unique
+        tests: [not_null, unique]
+      - name: country
+        tests: [not_null]
+      - name: total_orders
+        tests: [not_null]
+      - name: first_purchase_date
+        tests: [not_null]
+      - name: last_purchase_date
+        tests: [not_null]
 
   - name: dim_product
+    description: "1 ligne par SKU produit unique"
     columns:
       - name: product_id
-        tests:
-          - not_null
+        tests: [not_null, unique]
+      - name: product_name
+        tests: [not_null]
+      - name: avg_unit_price
+        tests: [not_null]
+
+  - name: dim_date
+    description: "Table calendrier — 1 ligne par jour"
+    columns:
+      - name: date_id
+        tests: [not_null, unique]
+      - name: year
+        tests: [not_null]
+      - name: month
+        tests: [not_null]
+
+  - name: dim_payment
+    description: "Modes de livraison disponibles (Ship, Flight, Road)"
+    columns:
+      - name: shipment_mode
+        tests: [not_null]
+        # Pas de test unique — 3 modes distincts attendus
+
+  # ── FACTS ───────────────────────────────────────────────────
 
   - name: fact_transactions
+    description: "1 ligne = 1 ligne de facture de vente"
     columns:
-      - name: InvoiceNo
-        tests:
-          - not_null
-
-      - name: customer_id
-        tests:
-          - not_null
-
+      - name: invoice_no
+        tests: [not_null]
       - name: product_id
-        tests:
-          - not_null
+        tests: [not_null]
+      - name: invoice_date
+        tests: [not_null]
+      - name: quantity
+        tests: [not_null]
+      - name: unit_price
+        tests: [not_null]
+      - name: total_revenue
+        tests: [not_null]
 
   - name: fact_returns
+    description: "1 ligne = 1 retour client (factures préfixées C)"
     columns:
-      - name: InvoiceNo
-        tests:
-          - not_null
-
-      - name: customer_id
-        tests:
-          - not_null
-
+      - name: invoice_no
+        tests: [not_null]
       - name: product_id
-        tests:
-          - not_null
+        tests: [not_null]
+      - name: quantity_returned
+        tests: [not_null]
+      - name: return_value
+        tests: [not_null]
+
+  # ── MARTS ───────────────────────────────────────────────────
 
   - name: mart_rfm
+    description: "1 ligne par client — scores RFM, segment CRM, CLV"
     columns:
       - name: customer_id
+        tests: [not_null, unique]
+      - name: recency
+        tests: [not_null]
+      - name: frequency
+        tests: [not_null]
+      - name: monetary
+        tests: [not_null]
+      - name: r_score
+        tests: [not_null]
+      - name: f_score
+        tests: [not_null]
+      - name: m_score
+        tests: [not_null]
+      - name: segment
         tests:
           - not_null
-          - unique
+          - accepted_values:
+              values: ['Champions', 'Loyal Customers', 'Potential Loyalists',
+                       'New Customers', 'At Risk', 'Hibernating', 'Lost', 'Others']
+      - name: clv
+        tests: [not_null]
+
+  - name: mart_funnel
+    description: "5 étapes du funnel de conversion (ST1)"
+    columns:
+      - name: funnel_step
+        tests: [not_null]
+      - name: step_order
+        tests: [not_null, unique]
+      - name: volume
+        tests: [not_null]
+
+  - name: mart_product_perf
+    description: "1 ligne par SKU — CA, retours, classe ABC (ST3)"
+    columns:
+      - name: product_id
+        tests: [not_null, unique]
+      - name: total_revenue
+        tests: [not_null]
+      - name: return_rate_pct
+        tests: [not_null]
+      - name: abc_class
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['A', 'B', 'C']
+
+  - name: mart_promo_impact
+    description: "1 ligne par commande — décomposition marge nette (ST4)"
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: net_margin
+        tests: [not_null]
+      - name: discount_bracket
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['0% - Prix plein', '1-10% - Remise légère',
+                       '11-25% - Remise significative',
+                       '26-50% - Promotion forte', '> 50% - Liquidation']
