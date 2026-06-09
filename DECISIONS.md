@@ -1,131 +1,231 @@
-# 📊 DECISIONS DE NETTOYAGE — L2 E-COMMERCE ANALYTICS
+# Décisions de Nettoyage des Données – Projet E-Commerce Analytics
 
 ## 1. Objectif
 
-Ce document décrit les décisions prises pour transformer les données brutes en données propres et exploitables dans un pipeline ETL (Bronze → Silver → Gold).
+Ce document présente les choix de nettoyage et de préparation des données effectués dans le cadre du pipeline ETL du projet E-Commerce Analytics.
 
-L’objectif est d’assurer :
-- la qualité des données
-- la cohérence métier
-- la reproductibilité du pipeline
+L'objectif est de transformer les données brutes en données fiables et exploitables tout en garantissant :
 
----
-
-## 2. Dataset Online Retail (data.csv)
-
-### 🔴 Doublons supprimés
-- Des lignes dupliquées ont été supprimées
-- Elles représentaient des transactions redondantes
-
-👉 Impact : réduction du bruit dans les analyses de ventes
+* la qualité des données ;
+* la cohérence avec les règles métier ;
+* la reproductibilité du pipeline ;
+* le respect de la contrainte du cahier des charges imposant une perte de données inférieure à 5 % sur les principaux fichiers Silver.
 
 ---
 
-### 🔴 Valeurs manquantes
-- `CustomerID` : suppression des lignes manquantes
-- `Description` : suppression des lignes manquantes
+## 2. Révision du pipeline : problèmes identifiés et corrections
 
-👉 Justification :
-Ces champs sont essentiels pour identifier le client et le produit.
+### Limites de la première version
 
----
+Dans la première version du pipeline, les valeurs aberrantes (outliers) étaient supprimées à l'aide de la méthode IQR.
 
-### 🔴 Factures annulées
-- Suppression des factures commençant par `C`
+Cette approche a entraîné une perte importante de données :
 
-👉 Justification :
-Ces transactions représentent des retours ou annulations et faussent l’analyse des ventes.
+| Dataset       | Perte totale |
+| ------------- | ------------ |
+| Online Retail | 38,51 %      |
+| Shipping      | 27,53 %      |
 
----
+Ces résultats ne respectaient pas les exigences du cahier des charges.
 
-### 🔴 Quantités invalides
-- Suppression des valeurs `Quantity <= 0`
+### Analyse des pertes sur Online Retail
 
-👉 Justification :
-Une quantité nulle ou négative n’a pas de sens métier.
+| Étape de nettoyage       | Lignes supprimées | Pourcentage |
+| ------------------------ | ----------------- | ----------- |
+| Doublons                 | 5 268             | 0,97 %      |
+| Factures annulées        | 9 251             | 1,71 %      |
+| CustomerID manquants     | 134 658           | 24,85 %     |
+| Prix unitaires invalides | 40                | 0,01 %      |
+| Outliers sur Quantity    | 25 616            | 4,73 %      |
+| Outliers sur UnitPrice   | 33 842            | 6,24 %      |
 
----
+### Analyse des pertes sur Shipping
 
-### 🔴 Prix invalides
-- Suppression des valeurs `UnitPrice <= 0`
-
-👉 Justification :
-Un produit ne peut pas avoir un prix nul ou négatif.
-
----
-
-### 🔴 Outliers (Quantité & Prix)
-- Détection et suppression des valeurs extrêmes (méthode IQR)
-
-👉 Impact :
-Réduction des biais sur les analyses de chiffre d’affaires
+| Étape de nettoyage            | Lignes supprimées | Pourcentage |
+| ----------------------------- | ----------------- | ----------- |
+| Outliers sur Prior_purchases  | 1 003             | 9,12 %      |
+| Outliers sur Discount_offered | 2 025             | 18,41 %     |
 
 ---
 
-## 3. Dataset E-Commerce Shipping (Train.csv)
+## 3. Corrections apportées
 
-### 🔴 Doublons supprimés
-- Suppression des lignes identiques
+### Remplacement de la suppression des outliers par le capping
 
----
+Au lieu de supprimer les valeurs extrêmes, celles-ci sont désormais limitées aux bornes définies par la méthode IQR :
 
-### 🔴 Valeurs manquantes
-- Variables numériques → imputation par la médiane
-- Variables catégorielles → imputation par le mode
+* borne inférieure : Q1 − 1,5 × IQR ;
+* borne supérieure : Q3 + 1,5 × IQR.
 
-👉 Justification :
-- la médiane est robuste aux outliers
-- le mode conserve la valeur la plus fréquente
+Cette approche présente plusieurs avantages :
 
----
+* conservation des transactions légitimes à fort volume ;
+* réduction de l'influence statistique des valeurs extrêmes ;
+* absence de perte de lignes ;
+* limitation du biais sur les indicateurs commerciaux.
 
-### 🔴 Outliers
-- Suppression des outliers dans :
-  - `Prior_purchases`
-  - `Discount_offered`
+Par exemple, une commande importante ou un produit premium ne sont pas nécessairement des erreurs. Les supprimer conduirait à sous-estimer le chiffre d'affaires réel.
 
-👉 Impact :
-Amélioration de la stabilité des modèles prédictifs
+Grâce à cette modification :
 
----
-
-### 🔴 Conversion des dates
-- Conversion en format `datetime`
-
-👉 Objectif :
-Uniformisation et préparation pour feature engineering
+| Dataset       | Perte liée aux outliers |
+| ------------- | ----------------------- |
+| Online Retail | 0 %                     |
+| Shipping      | 0 %                     |
 
 ---
 
-## 4. Impact global du nettoyage
+### Séparation des données selon les besoins métier
 
-### 📉 Perte de données
-- Dataset Online Retail : ~17.74%
-- Dataset Shipping : ~27.53%
+Le dataset Online Retail contient un nombre important de transactions sans identifiant client (`CustomerID`).
 
-👉 Cette perte est volontaire et contrôlée afin de garantir la qualité des données finales.
+Ces transactions restent exploitables pour les analyses produits et financières, mais ne peuvent pas être utilisées pour des analyses centrées sur les clients telles que le RFM ou le CLV.
 
----
+Pour cette raison, trois fichiers Silver distincts sont générés :
 
-## 5. Pipeline ETL
+| Fichier                        | Contenu                         | Utilisation                      |
+| ------------------------------ | ------------------------------- | -------------------------------- |
+| `online_retail_full.csv`       | Toutes les transactions valides | Analyses produits et financières |
+| `online_retail_identified.csv` | Transactions avec CustomerID    | RFM et CLV                       |
+| `online_retail_returns.csv`    | Factures annulées               | Analyse des retours              |
 
-Le pipeline suit une architecture structurée :
-
-- **Bronze** : données brutes
-- **Silver** : données nettoyées
-- **Gold** : données prêtes pour analyse et modélisation
-
-✔ Propriétés du pipeline :
-- idempotent
-- reproductible
-- logué
+Cette séparation permet de conserver l'ensemble des ventes utiles tout en produisant un jeu de données adapté aux analyses clients.
 
 ---
 
-## 6. Conclusion
+## 4. Justification de la perte observée sur `online_retail_identified.csv`
 
-Ces décisions permettent de garantir :
-- une meilleure qualité des données
-- une réduction des biais statistiques
-- un dataset fiable pour l’analyse et le machine learning
-- un pipeline industriel propre et reproductible
+Le fichier destiné aux analyses RFM et CLV présente une perte totale de 27,82 %.
+
+Cette perte est principalement due à l'absence d'identifiant client sur certaines transactions.
+
+| Cause                            | Pourcentage |
+| -------------------------------- | ----------- |
+| CustomerID manquants             | 24,85 %     |
+| Factures annulées                | 1,71 %      |
+| Doublons                         | 0,97 %      |
+| Codes spéciaux et prix invalides | 0,29 %      |
+
+La majorité de cette perte est donc inévitable dans le cadre d'une analyse client.
+
+Si l'on exclut les transactions anonymes, la perte réelle liée au nettoyage n'est que de 2,97 %, ce qui reste inférieur au seuil imposé par le cahier des charges.
+
+Les transactions anonymes ne sont pas supprimées du projet ; elles sont conservées dans le fichier `online_retail_full.csv`.
+
+---
+
+## 5. Règles de nettoyage appliquées au dataset Online Retail
+
+### Suppression des doublons
+
+Les transactions strictement identiques sur l'ensemble des colonnes sont supprimées afin d'éviter les redondances.
+
+### Isolation des factures annulées
+
+Les factures dont le numéro commence par la lettre `C` correspondent à des annulations ou des retours.
+
+Elles sont extraites dans un fichier dédié afin de ne pas fausser les analyses de ventes tout en restant disponibles pour l'étude des retours.
+
+### Exclusion des codes spéciaux
+
+Les codes suivants sont supprimés :
+
+* POST
+* D
+* C2
+* M
+* BANK CHARGES
+* AMAZONFEE
+
+Ils correspondent à des frais ou ajustements comptables et non à des produits commercialisés.
+
+### Suppression des prix invalides
+
+Les lignes présentant un prix unitaire nul ou négatif sont supprimées car elles ne représentent pas des transactions commerciales valides.
+
+### Traitement des valeurs aberrantes
+
+Les variables `Quantity` et `UnitPrice` sont traitées par capping à l'aide de la méthode IQR.
+
+### Création de nouvelles variables
+
+Deux transformations sont réalisées :
+
+* conversion de `InvoiceDate` au format datetime ;
+* création de la variable :
+
+```python
+TotalRevenue = Quantity * UnitPrice
+```
+
+---
+
+## 6. Règles de nettoyage appliquées au dataset Shipping
+
+### Gestion des doublons
+
+Aucun doublon significatif n'a été détecté dans ce jeu de données.
+
+### Traitement des valeurs manquantes numériques
+
+Les valeurs manquantes des variables numériques sont remplacées par la médiane de la colonne concernée.
+
+Ce choix est robuste aux valeurs extrêmes.
+
+### Traitement des valeurs manquantes catégorielles
+
+Les valeurs manquantes des variables catégorielles sont remplacées par le mode, c'est-à-dire la valeur la plus fréquente.
+
+### Traitement des valeurs aberrantes
+
+Toutes les variables numériques sont traitées par capping selon la méthode IQR.
+
+Cette stratégie permet de conserver l'intégralité des observations tout en limitant l'influence des valeurs extrêmes.
+
+---
+
+## 7. Résultats obtenus
+
+| Dataset       | Fichier Silver                 | Lignes initiales | Lignes finales | Perte   |
+| ------------- | ------------------------------ | ---------------- | -------------- | ------- |
+| Online Retail | `online_retail_full.csv`       | 541 909          | 523 281        | 3,44 %  |
+| Online Retail | `online_retail_identified.csv` | 541 909          | 391 169        | 27,82 % |
+| Online Retail | `online_retail_returns.csv`    | —                | 9 251          | —       |
+| Shipping      | `train_clean.csv`              | 10 999           | 10 999         | 0,00 %  |
+
+Le seuil maximal de perte de 5 % est respecté pour les principaux fichiers Silver utilisés dans les analyses.
+
+---
+
+## 8. Architecture du pipeline ETL
+
+Le projet suit une architecture de type Médaillon :
+
+```text
+Bronze → Silver → Gold
+```
+
+Les fichiers produits dans la couche Silver sont :
+
+```text
+data/silver/
+├── online_retail_full.csv
+├── online_retail_identified.csv
+├── online_retail_returns.csv
+└── train_clean.csv
+```
+
+Cette organisation garantit la traçabilité des transformations et facilite la réutilisation des données dans les différentes étapes analytiques.
+
+---
+
+## 9. Conclusion
+
+La deuxième version du pipeline améliore significativement la qualité des données tout en respectant les contraintes du projet.
+
+Les principales améliorations apportées sont :
+
+1. Le remplacement de la suppression des outliers par une stratégie de capping.
+2. La séparation des données selon les besoins métier afin de préserver les transactions anonymes lorsqu'elles restent exploitables.
+
+Cette approche permet d'obtenir des jeux de données cohérents, documentés et adaptés aux différents cas d'usage du projet, notamment les analyses RFM, CLV, catalogue produit, rentabilité et gestion des retours.
