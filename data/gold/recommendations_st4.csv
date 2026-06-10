@@ -1,0 +1,4 @@
+﻿theme,constat,recommandation,kpi_associe
+Livraison,Le mode Road présente la meilleure marge nette moyenne (-24.93 £).,Favoriser ce mode lorsque les contraintes de délai et de qualité le permettent.,marge_nette_moyenne
+Retours,236 commandes sont classées avec un risque retour élevé.,"Surveiller les commandes combinant forte remise, faible satisfaction, retard et poids élevé.",return_risk_score
+Remises fortes,733 commandes ont une remise supérieure à 50%.,Réserver les remises supérieures à 50% aux opérations de liquidation ou de déstockage contrôlé.,discount_pct
