@@ -9,3 +9,49 @@
 2026-05-26 12:09:59,677 - INFO - 2025 outliers supprimés dans Discount_offered (IQR)
 2026-05-26 12:09:59,677 - INFO - Perte totale du dataset : 27.53%
 2026-05-26 12:10:00,929 - INFO - Pipeline terminé
+2026-06-13 20:52:28,895 - INFO - ============================================================
+2026-06-13 20:52:28,895 - INFO - Pipeline v2 démarré
+2026-06-13 20:52:28,895 - INFO - ============================================================
+2026-06-13 20:52:29,356 - INFO - [Online Retail] Départ : 541,909 lignes
+2026-06-13 20:52:29,591 - INFO - [Online Retail] Doublons supprimés : 5,268 (0.97%)
+2026-06-13 20:52:29,707 - INFO - [Online Retail] Factures annulées isolées : 9,251 (1.71%)
+2026-06-13 20:52:29,762 - INFO - [Online Retail] Codes spéciaux exclus : 1,608
+2026-06-13 20:52:29,793 - INFO - [Online Retail] UnitPrice <= 0 supprimés : 2,501
+2026-06-13 20:52:29,807 - INFO - 26815 valeurs cappées dans 'Quantity' [-15.50 – 28.50] (IQR)
+2026-06-13 20:52:29,836 - INFO - 36472 valeurs cappées dans 'UnitPrice' [-3.07 – 8.45] (IQR)
+2026-06-13 20:52:29,946 - INFO - [Online Retail FULL] Lignes finales : 523,281 — Perte : 3.44%
+2026-06-13 20:52:30,016 - INFO - [Online Retail IDENTIFIED] Lignes finales : 391,169 — Perte : 27.82% (dont 24.85% de transactions anonymes, inévitable pour RFM)
+2026-06-13 20:52:30,020 - INFO - [Shipping] Départ : 10,999 lignes
+2026-06-13 20:52:30,024 - INFO - [Shipping] Doublons supprimés : 0
+2026-06-13 20:52:30,035 - INFO - 1003 valeurs cappées dans 'Prior_purchases' [1.50 – 5.50] (IQR)
+2026-06-13 20:52:30,037 - INFO - 2209 valeurs cappées dans 'Discount_offered' [-5.00 – 19.00] (IQR)
+2026-06-13 20:52:30,040 - INFO - [Shipping] Lignes finales : 10,999 — Perte : 0.00%
+2026-06-13 20:52:34,291 - INFO - Pipeline v2 terminé avec succès
+2026-06-13 20:52:34,291 - INFO - Fichiers Silver produits :
+2026-06-13 20:52:34,291 - INFO -   → online_retail_identified.csv  (ST2 RFM/CLV)
+2026-06-13 20:52:34,291 - INFO -   → online_retail_full.csv         (ST3 Catalogue, ST4 Marge)
+2026-06-13 20:52:34,291 - INFO -   → online_retail_returns.csv      (ST4 Retours)
+2026-06-13 20:52:34,291 - INFO -   → train_clean.csv                (ST1, ST2, ST4 Shipping)
+2026-06-13 20:52:44,702 - INFO - ============================================================
+2026-06-13 20:52:44,702 - INFO - Pipeline v2 démarré
+2026-06-13 20:52:44,702 - INFO - ============================================================
+2026-06-13 20:52:45,149 - INFO - [Online Retail] Départ : 541,909 lignes
+2026-06-13 20:52:45,375 - INFO - [Online Retail] Doublons supprimés : 5,268 (0.97%)
+2026-06-13 20:52:45,521 - INFO - [Online Retail] Factures annulées isolées : 9,251 (1.71%)
+2026-06-13 20:52:45,587 - INFO - [Online Retail] Codes spéciaux exclus : 1,608
+2026-06-13 20:52:45,621 - INFO - [Online Retail] UnitPrice <= 0 supprimés : 2,501
+2026-06-13 20:52:45,634 - INFO - 26815 valeurs cappées dans 'Quantity' [-15.50 – 28.50] (IQR)
+2026-06-13 20:52:45,664 - INFO - 36472 valeurs cappées dans 'UnitPrice' [-3.07 – 8.45] (IQR)
+2026-06-13 20:52:45,784 - INFO - [Online Retail FULL] Lignes finales : 523,281 — Perte : 3.44%
+2026-06-13 20:52:45,830 - INFO - [Online Retail IDENTIFIED] Lignes finales : 391,169 — Perte : 27.82% (dont 24.85% de transactions anonymes, inévitable pour RFM)
+2026-06-13 20:52:45,846 - INFO - [Shipping] Départ : 10,999 lignes
+2026-06-13 20:52:45,846 - INFO - [Shipping] Doublons supprimés : 0
+2026-06-13 20:52:45,862 - INFO - 1003 valeurs cappées dans 'Prior_purchases' [1.50 – 5.50] (IQR)
+2026-06-13 20:52:45,862 - INFO - 2209 valeurs cappées dans 'Discount_offered' [-5.00 – 19.00] (IQR)
+2026-06-13 20:52:45,862 - INFO - [Shipping] Lignes finales : 10,999 — Perte : 0.00%
+2026-06-13 20:52:49,879 - INFO - Pipeline v2 terminé avec succès
+2026-06-13 20:52:49,895 - INFO - Fichiers Silver produits :
+2026-06-13 20:52:49,895 - INFO -   → online_retail_identified.csv  (ST2 RFM/CLV)
+2026-06-13 20:52:49,895 - INFO -   → online_retail_full.csv         (ST3 Catalogue, ST4 Marge)
+2026-06-13 20:52:49,895 - INFO -   → online_retail_returns.csv      (ST4 Retours)
+2026-06-13 20:52:49,895 - INFO -   → train_clean.csv                (ST1, ST2, ST4 Shipping)
