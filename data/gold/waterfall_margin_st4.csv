@@ -1,7 +1,7 @@
-﻿etape,valeur,type
-Revenu estimé,2802181.9398,absolute
-Coût produit,-2311955.0,relative
-Remises,-490226.93979999993,relative
-Livraison,-92866.106,relative
-Retours,-235083.15519999998,relative
-Marge nette,-327949.26119999995,total
+etape,valeur,type
+Revenu estime,2802182,absolute
+Cout produit,-2311955,relative
+Remises,-490227,relative
+Livraison,-92867,relative
+Retours,-235083,relative
+Marge nette,-327949,total
