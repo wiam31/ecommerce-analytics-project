@@ -55,3 +55,26 @@
 2026-06-13 20:52:49,895 - INFO -   → online_retail_full.csv         (ST3 Catalogue, ST4 Marge)
 2026-06-13 20:52:49,895 - INFO -   → online_retail_returns.csv      (ST4 Retours)
 2026-06-13 20:52:49,895 - INFO -   → train_clean.csv                (ST1, ST2, ST4 Shipping)
+2026-06-15 10:03:26,074 - INFO - ============================================================
+2026-06-15 10:03:26,074 - INFO - Pipeline v2 démarré
+2026-06-15 10:03:26,074 - INFO - ============================================================
+2026-06-15 10:03:26,608 - INFO - [Online Retail] Départ : 541,909 lignes
+2026-06-15 10:03:26,858 - INFO - [Online Retail] Doublons supprimés : 5,268 (0.97%)
+2026-06-15 10:03:26,981 - INFO - [Online Retail] Factures annulées isolées : 9,251 (1.71%)
+2026-06-15 10:03:27,029 - INFO - [Online Retail] Codes spéciaux exclus : 1,608
+2026-06-15 10:03:27,062 - INFO - [Online Retail] UnitPrice <= 0 supprimés : 2,501
+2026-06-15 10:03:27,079 - INFO - 26815 valeurs cappées dans 'Quantity' [-15.50 – 28.50] (IQR)
+2026-06-15 10:03:27,112 - INFO - 36472 valeurs cappées dans 'UnitPrice' [-3.07 – 8.45] (IQR)
+2026-06-15 10:03:27,241 - INFO - [Online Retail FULL] Lignes finales : 523,281 — Perte : 3.44%
+2026-06-15 10:03:27,295 - INFO - [Online Retail IDENTIFIED] Lignes finales : 391,169 — Perte : 27.82% (dont 24.85% de transactions anonymes, inévitable pour RFM)
+2026-06-15 10:03:27,313 - INFO - [Shipping] Départ : 10,999 lignes
+2026-06-15 10:03:27,313 - INFO - [Shipping] Doublons supprimés : 0
+2026-06-15 10:03:27,328 - INFO - 1003 valeurs cappées dans 'Prior_purchases' [1.50 – 5.50] (IQR)
+2026-06-15 10:03:27,328 - INFO - 2209 valeurs cappées dans 'Discount_offered' [-5.00 – 19.00] (IQR)
+2026-06-15 10:03:27,328 - INFO - [Shipping] Lignes finales : 10,999 — Perte : 0.00%
+2026-06-15 10:03:32,223 - INFO - Pipeline v2 terminé avec succès
+2026-06-15 10:03:32,225 - INFO - Fichiers Silver produits :
+2026-06-15 10:03:32,225 - INFO -   → online_retail_identified.csv  (ST2 RFM/CLV)
+2026-06-15 10:03:32,225 - INFO -   → online_retail_full.csv         (ST3 Catalogue, ST4 Marge)
+2026-06-15 10:03:32,225 - INFO -   → online_retail_returns.csv      (ST4 Retours)
+2026-06-15 10:03:32,225 - INFO -   → train_clean.csv                (ST1, ST2, ST4 Shipping)

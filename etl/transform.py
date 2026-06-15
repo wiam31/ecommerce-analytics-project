@@ -2,38 +2,6 @@ import logging
 import pandas as pd
 
 
-# =========================================================
-# STRATÉGIE DE NETTOYAGE — DÉCISION DOCUMENTÉE
-#
-# Problème initial : suppression des outliers par IQR
-# entraînait 38.51% de perte sur Online Retail et 27.53%
-# sur Shipping, bien au-delà du seuil < 5% du CDC.
-#
-# Corrections apportées (v2) :
-#
-# 1. OUTLIERS → CAPPING au lieu de suppression
-#    Raisonnement : les valeurs extrêmes sont réelles
-#    (ex. commande professionnelle de 10 000 unités).
-#    Les supprimer introduit un biais sur le CA total.
-#    On les plafonne à Q3 + 1.5*IQR pour conserver
-#    la ligne tout en limitant l'influence sur les stats.
-#    Impact : perte outliers réduite de ~11% → 0%.
-#
-# 2. CustomerID NULS → fichier séparé (anonymes)
-#    Raisonnement : 24.85% des transactions Online Retail
-#    n'ont pas de CustomerID. Ces lignes sont inutilisables
-#    pour RFM/CLV (ST2) mais parfaitement valides pour
-#    l'analyse catalogue (ST3) et marge (ST4).
-#    On produit deux fichiers Silver distincts :
-#      - online_retail_identified.csv  → RFM/CLV (ST2)
-#      - online_retail_full.csv        → ST3, ST4 (toutes lignes)
-#    Impact : perte Online Retail identifié passe de
-#    38.51% → 27.54% (pertes légitimes uniquement :
-#    doublons, annulations, prix invalides).
-#    Pour le pipeline principal (full), perte < 5%.
-# =========================================================
-
-
 def cap_outliers(df, col):
     """
     Plafonne les valeurs extrêmes d'une colonne numérique
