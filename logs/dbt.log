@@ -1,0 +1,41 @@
+[0m12:56:48.263741 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000249111FC410>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002491015A010>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000249111FD350>]}
+
+
+============================== 12:56:48.273498 | 17083798-7668-4809-87cd-591e4851bb55 ==============================
+[0m12:56:48.273498 [info ] [MainThread]: Running with dbt=1.11.11
+[0m12:56:48.273498 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'False', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Users\\Wiam Ougga\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'invocation_command': 'dbt run', 'indirect_selection': 'eager', 'use_colors': 'True', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m12:56:48.280749 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\Wiam Ougga\Downloads\ecommerce-analytics-project\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m12:56:48.282763 [debug] [MainThread]: Command `dbt run` failed at 12:56:48.282763 after 0.12 seconds
+[0m12:56:48.284253 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000249111F3D50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000249111F2E90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002490FFBFCD0>]}
+[0m12:56:48.286263 [debug] [MainThread]: Flushing usage events
+[0m12:56:49.023575 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m13:02:16.819295 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000011747BBC410>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000011746B32790>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000011747BBE890>]}
+
+
+============================== 13:02:16.825557 | 6a05e0df-125b-40d4-ad65-a21179654f6c ==============================
+[0m13:02:16.825557 [info ] [MainThread]: Running with dbt=1.11.11
+[0m13:02:16.827564 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'False', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Users\\Wiam Ougga\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'invocation_command': 'dbt run', 'use_colors': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'log_path': 'C:\\Users\\Wiam Ougga\\Downloads\\ecommerce-analytics-project\\logs'}
+[0m13:02:16.831579 [error] [MainThread]: Encountered an error:
+Runtime Error
+  Could not find profile named 'ecommerce_dbt'
+[0m13:02:16.831579 [debug] [MainThread]: Command `dbt run` failed at 13:02:16.831579 after 0.12 seconds
+[0m13:02:16.833587 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000011747CB4E90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000011747CB7190>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000011746B447D0>]}
+[0m13:02:16.833587 [debug] [MainThread]: Flushing usage events
+[0m13:02:18.641870 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m13:02:42.589962 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B83DFCF350>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B83CD8FD10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B83DFD5A90>]}
+
+
+============================== 13:02:42.603859 | 9a9002da-5d8c-40c4-9dfc-ab19c2342c89 ==============================
+[0m13:02:42.603859 [info ] [MainThread]: Running with dbt=1.11.11
+[0m13:02:42.603859 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'False', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Users\\Wiam Ougga\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'invocation_command': 'dbt run', 'use_colors': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'log_path': 'C:\\Users\\Wiam Ougga\\Downloads\\ecommerce-analytics-project\\logs'}
+[0m13:02:42.605516 [error] [MainThread]: Encountered an error:
+Runtime Error
+  Could not find profile named 'ecommerce_dbt'
+[0m13:02:42.605516 [debug] [MainThread]: Command `dbt run` failed at 13:02:42.605516 after 0.12 seconds
+[0m13:02:42.605516 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B83E099950>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B836474C50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B83DFCFF10>]}
+[0m13:02:42.611276 [debug] [MainThread]: Flushing usage events
+[0m13:02:43.301669 [debug] [MainThread]: An error was encountered while trying to flush usage events

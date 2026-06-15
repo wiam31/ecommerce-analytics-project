@@ -5183,7 +5183,7 @@
       <simple-id uuid='{E28D2B48-49C7-4858-9306-C3CBD66B33E4}' />
     </dashboard>
   </dashboards>
-  <windows source-height='135'>
+  <windows pres-mode='true' source-height='135'>
     <window class='worksheet' name='Waterfall ST4'>
       <cards>
         <edge name='left'>

@@ -44,8 +44,8 @@ def clean_online_retail(df):
         f"{before - len(df):,} ({(before - len(df))/initial_rows*100:.2f}%)"
     )
 
-    # 2. Factures annulées (retours — préfixe 'C')
-    #    Conservées dans un fichier retours séparé (ST4)
+    # Factures annulées (retours — préfixe 'C')
+    # Conservées dans un fichier retours séparé (ST4)
     returns_mask = df["InvoiceNo"].astype(str).str.startswith("C")
     df_returns = df[returns_mask].copy()
     df = df[~returns_mask]
@@ -54,7 +54,7 @@ def clean_online_retail(df):
         f"{len(df_returns):,} ({len(df_returns)/initial_rows*100:.2f}%)"
     )
 
-    # 3. Codes produits spéciaux à exclure (CDC §2.1)
+    # Codes produits spéciaux à exclure (CDC §2.1)
     special_codes = ["POST", "D", "C2", "M", "BANK CHARGES", "AMAZONFEE"]
     before = len(df)
     df = df[~df["StockCode"].astype(str).isin(special_codes)]
@@ -63,7 +63,7 @@ def clean_online_retail(df):
         f"{before - len(df):,}"
     )
 
-    # 4. UnitPrice invalide
+    # UnitPrice invalide
     before = len(df)
     df = df[df["UnitPrice"] > 0]
     logging.info(
@@ -71,15 +71,15 @@ def clean_online_retail(df):
         f"{before - len(df):,}"
     )
 
-    # 5. Capping outliers (au lieu de suppression)
+    #  Capping outliers (au lieu de suppression)
     df = cap_outliers(df, "Quantity")
     df = cap_outliers(df, "UnitPrice")
 
-    # 6. Feature engineering de base
+    # Feature engineering de base
     df["InvoiceDate"] = pd.to_datetime(df["InvoiceDate"])
     df["TotalRevenue"] = df["Quantity"] * df["UnitPrice"]
 
-    # 7. df_full = toutes lignes valides (ST3, ST4)
+    #  df_full = toutes lignes valides (ST3, ST4)
     df_full = df.copy()
     loss_full = (initial_rows - len(df_full)) / initial_rows * 100
     logging.info(
@@ -87,7 +87,7 @@ def clean_online_retail(df):
         f"— Perte : {loss_full:.2f}%"
     )
 
-    # 8. df_identified = lignes avec CustomerID (ST2 RFM/CLV)
+    # df_identified = lignes avec CustomerID (ST2 RFM/CLV)
     df_identified = df.dropna(subset=["CustomerID"]).copy()
     df_identified["CustomerID"] = df_identified["CustomerID"].astype(int)
     loss_id = (initial_rows - len(df_identified)) / initial_rows * 100
@@ -108,14 +108,14 @@ def clean_shipping(df):
     initial_rows = len(df)
     logging.info(f"[Shipping] Départ : {initial_rows:,} lignes")
 
-    # 1. Doublons
+    #  Doublons
     before = len(df)
     df = df.drop_duplicates()
     logging.info(
         f"[Shipping] Doublons supprimés : {before - len(df):,}"
     )
 
-    # 2. Valeurs manquantes numériques → médiane
+    #  Valeurs manquantes numériques → médiane
     numeric_cols = df.select_dtypes(include="number").columns
     for col in numeric_cols:
         missing = df[col].isnull().sum()
@@ -126,7 +126,7 @@ def clean_shipping(df):
                 f"[Shipping] {missing} nulls imputés (médiane={median:.2f}) dans '{col}'"
             )
 
-    # 3. Valeurs manquantes catégorielles → mode
+    #  Valeurs manquantes catégorielles → mode
     cat_cols = df.select_dtypes(include="object").columns
     for col in cat_cols:
         missing = df[col].isnull().sum()
@@ -137,9 +137,7 @@ def clean_shipping(df):
                 f"[Shipping] {missing} nulls imputés (mode='{mode}') dans '{col}'"
             )
 
-    # 4. Capping outliers (au lieu de suppression)
-    #    Prior_purchases et Discount_offered étaient les seules
-    #    colonnes avec des outliers significatifs dans le pipeline v1
+    #  Capping outliers (au lieu de suppression)
     for col in numeric_cols:
         df = cap_outliers(df, col)
 
